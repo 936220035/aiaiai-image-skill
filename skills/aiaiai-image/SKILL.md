@@ -1,28 +1,31 @@
 ---
 name: aiaiai-image
-description: Generate or edit raster images through the AIAIAI OpenAI-compatible image API and save the returned Base64 or URL image locally. Use when a user asks Codex or Claude Code to create, redraw, transform, or edit an image with an AIAIAI API key, the GPT-Image group, api.aiaiai001.com, or the gpt-image-2 model.
+description: Generate or edit raster images through the AIAIAI OpenAI-compatible image API, save returned Base64 or URL images locally, and save a user-supplied dedicated image key for later use when explicitly requested. Use when a user asks Codex or Claude Code to create, redraw, transform, or edit an image with an AIAIAI API key, the GPT-Image group, api.aiaiai001.com, or the gpt-image-2 model.
 ---
 
 # AIAIAI Image
 
 Use the bundled `scripts/aiaiai_image.py` runner instead of the built-in image path when the request must use the user's AIAIAI relay account.
 
-## First-time setup
+## Simple workflow
 
-1. Ask the user to create an API key in the AIAIAI console and select the `GPT-Image` group for that key.
-2. Configure the key interactively so it is not placed in shell history:
+1. If the user has not supplied a key, ask them to create a dedicated image key in the AIAIAI console. Recommend limiting it to model `gpt-image-2`, group `GPT-Image`, and a small available balance.
+2. If the user supplies a key and explicitly asks to save it locally, save it immediately and continue. Do not ask them to send it again:
+
+```bash
+python "{baseDir}/scripts/aiaiai_image.py" configure --api-key "<key supplied by user>"
+```
+
+3. Do not repeat the key in the response, logs, generated files, screenshots, or summary.
+4. Generate or edit the requested image immediately after saving the key. A separate `check` is optional, not a required extra step.
+
+If no key was supplied in chat, hidden interactive setup remains available:
 
 ```bash
 python "{baseDir}/scripts/aiaiai_image.py" configure
 ```
 
-3. Verify access without generating an image:
-
-```bash
-python "{baseDir}/scripts/aiaiai_image.py" check
-```
-
-Never print, commit, or include the API key in prompts, logs, screenshots, or generated artifacts.
+When Plan mode and user-question tools are available, ask short questions only when important details such as style, aspect ratio, text, or reference-image intent are unclear. Otherwise use reasonable defaults and proceed.
 
 ## Generate an image
 
