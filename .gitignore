@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+output/
+generated/
+*.png
+*.jpg
+*.jpeg
+*.webp
+credentials.json
+.env

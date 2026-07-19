@@ -1,0 +1,4 @@
+interface:
+  display_name: "AIAIAI 生图"
+  short_description: "通过 AIAIAI 中转站快速生成、下载和编辑图片文件"
+  default_prompt: "Use $aiaiai-image to generate or edit an image through the AIAIAI OpenAI-compatible image API."
